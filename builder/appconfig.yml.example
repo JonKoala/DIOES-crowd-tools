@@ -1,0 +1,3 @@
+path:
+  api: '[API-PATH]'
+  client: '[CLIENT-PATH]'
