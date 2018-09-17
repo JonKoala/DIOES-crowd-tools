@@ -1,0 +1,10 @@
+{
+  "name": "diariobot-routine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^4.0.0",
+    "js-yaml": "^3.12.0"
+  }
+}
