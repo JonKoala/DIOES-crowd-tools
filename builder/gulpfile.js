@@ -7,6 +7,14 @@ const yaml = require('js-yaml')
 
 
 const appconfig = yaml.load(fs.readFileSync('appconfig.yml'))
+var npmCommand = ''
+switch (process.platform) {
+  case 'win32':
+    npmCommand = 'npm.cmd'
+    break;
+  case 'linux':
+    npmCommand = 'npm'
+}
 
 gulp.task('reset-api', done => {
   git.reset('origin/master', { args:'--hard', cwd: appconfig.path.api }, done)
@@ -30,17 +38,17 @@ gulp.task('install-dependencies-client', done => {
 })
 
 gulp.task('build-client', done => {
-  child.exec('npm.cmd run build', { cwd: appconfig.path.client }, done)
+  child.exec(`${npmCommand} run build`, { cwd: appconfig.path.client }, done)
 })
 gulp.task('build-simple-client', done => {
-  child.exec('npm.cmd run build:simple', { cwd: appconfig.path.client }, done)
+  child.exec(`${npmCommand} run build:simple`, { cwd: appconfig.path.client }, done)
 })
 
 gulp.task('start-api', done => {
-  child.spawn('npm.cmd', ['start'], { cwd: appconfig.path.api, stdio: 'inherit' }).on('close', done)
+  child.spawn(npmCommand, ['start'], { cwd: appconfig.path.api, stdio: 'inherit' }).on('close', done)
 })
 gulp.task('start-client', done => {
-  child.spawn('npm.cmd', ['start'], { cwd: appconfig.path.client, stdio: 'inherit' }).on('close', done)
+  child.spawn(npmCommand, ['start'], { cwd: appconfig.path.client, stdio: 'inherit' }).on('close', done)
 })
 
 gulp.task('default', gulp.series(
